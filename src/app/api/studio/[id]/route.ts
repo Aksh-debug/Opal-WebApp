@@ -1,9 +1,9 @@
 import { client } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req:NextRequest,{params}:{params:{id:string}}){
+export async function POST(req:NextRequest,{params}:{params:Promise<{id:string}>}){
     console.log('CALLED')
-    const {id}=params;
+    const {id}=await params;
     const body=await req.json();
 
     const studio=await client.user.update({
