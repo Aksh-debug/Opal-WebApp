@@ -22,13 +22,14 @@ export async function GET(req:NextRequest,{params}:{params:Promise<{id:string}>}
             }
         })
         if(userProfile) return NextResponse.json({status:200,user:userProfile});
-        const clerkUserInstance=await clerkClient.users.getUser(id);
+        const clerks=await clerkClient()
+        const clerkUserInstance=await clerks.users.getUser(id);
         const createUser=await client.user.create({
             data:{
                 clerkid:id,
                 email:clerkUserInstance.emailAddresses[0].emailAddress,
-                firstname:clerkUserInstance.firstname,
-                lastname:clerkUserInstance.lastname,
+                firstname:clerkUserInstance.firstName,
+                lastname:clerkUserInstance.lastName,
                 studio:{
                     create:{}
                 },
