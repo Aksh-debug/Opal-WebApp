@@ -2,13 +2,12 @@ import { completeSubscription } from "@/actions/user";
 import { redirect } from "next/navigation";
 
 type Props={
-    searchParams:{
         session_id?:string
         cancel?:boolean
-    }
 }
 
-const Page=async({searchParams:{cancel,session_id}}:Props)=>{
+const Page=async({searchParams}:{searchParams:Promise<Props>})=>{
+    const {session_id,cancel}=await searchParams;
     console.log('sessionnsss',session_id)
     if(session_id){
         const customer=await completeSubscription(session_id)

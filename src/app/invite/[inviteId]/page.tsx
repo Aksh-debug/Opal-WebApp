@@ -2,12 +2,11 @@ import { acceptInvite } from "@/actions/user";
 import { redirect } from "next/navigation";
 
 type Props={
-    params:{
         inviteId:string
-    }
 }
 
-const Page=async({params:{inviteId}}:Props)=>{
+const Page=async({params}:{params:Promise<Props>})=>{
+    const {inviteId}=await params;
     const invite=await acceptInvite(inviteId)
     if(invite.status===404) return redirect('/auth/sign-in')
     

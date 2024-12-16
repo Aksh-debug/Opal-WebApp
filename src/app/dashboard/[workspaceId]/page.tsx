@@ -1,15 +1,12 @@
 import CreateFolders from "@/components/global/create-folders";
 import CreateWorkspace from "@/components/global/create-workspace";
 import Folders from "@/components/global/folders";
-import Videos from "@/components/global/videos";
 import Test from "@/components/global/videos/test";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-type Props={
-    params:{workspaceId:string}
-}
+type Props={workspaceId:string}
 
-const Page=async({params}:Props)=>{
+const Page=async({params}:{params:Promise<Props>})=>{
     const {workspaceId}=await params;
     return (
         <div>

@@ -4,14 +4,13 @@ import Videos from "@/components/global/videos";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 type Props={
-    params:{
         workspaceId:string
         folderId:string
-    }
 }
 
-const Page=async({params:{workspaceId,folderId}}:Props)=>{ 
+const Page=async({params}:{params:Promise<Props>})=>{ 
 
+    const {workspaceId,folderId}=await params
     const query=new QueryClient();
     await query.prefetchQuery({
         queryKey:['folder-videos'],
