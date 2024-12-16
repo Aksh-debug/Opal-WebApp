@@ -9,8 +9,8 @@ import { Dot, Share2, User } from "lucide-react"
 
 type Props={
     User:{
-        firstname:string | null
-        lastname:string | null
+        firstName:string | null
+        lastName:string | null
         image:string | null
     } | null
     id:string
@@ -73,7 +73,7 @@ const VideoCard=(props:Props)=>{
                             </Avatar>
                             <div>
                                 <p className="capitalize text-xs text-[#BDBDBD]">
-                                {props.User?.firstname} {props.User?.lastname}
+                                {props.User?.firstName} {props.User?.lastName}
                                 </p>
                                 <p className="text-xs text-[#6b6b6b] flex items-center">
                                  <Dot/> {days==0 ? 'Today' : `${days}d ago`}
@@ -88,7 +88,7 @@ const VideoCard=(props:Props)=>{
                                 size={12}
                                 />
                                 <p className="text-xs text-[#9D9D9D] capitalize">
-                                    {props.User?.firstname}&apos;s Workspace
+                                    {props.User?.firstName}&apos;s Workspace
                                 </p>
                             </span>
                         </div>
