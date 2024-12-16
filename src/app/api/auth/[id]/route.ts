@@ -7,9 +7,10 @@ export async function GET(req:NextRequest,{params}:{params:{id:string}}){
     console.log('ENDPOINT HIT!!')
 
     try {
+        const {id}=params;
         const userProfile=await client.user.findUnique({
             where:{
-                clerkid:params.id
+                clerkid:id
             },
             include:{
                 studio:true,
@@ -21,10 +22,10 @@ export async function GET(req:NextRequest,{params}:{params:{id:string}}){
             }
         })
         if(userProfile) return NextResponse.json({status:200,user:userProfile});
-        const clerkUserInstance=await clerkClient.users.getUser(params.id);
+        const clerkUserInstance=await clerkClient.users.getUser(id);
         const createUser=await client.user.create({
             data:{
-                clerkid:params.id,
+                clerkid:id,
                 email:clerkUserInstance.emailAddresses[0].emailAddress,
                 firstname:clerkUserInstance.firstname,
                 lastname:clerkUserInstance.lastname,
