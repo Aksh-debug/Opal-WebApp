@@ -2,14 +2,14 @@ import { client } from "@/lib/prisma";
 import { clerkClient } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req:NextRequest,{params:{id}}:{params:{id:string}}){
+export async function GET(req:NextRequest,{params}:{params:{id:string}}){
 
     console.log('ENDPOINT HIT!!')
 
     try {
         const userProfile=await client.user.findUnique({
             where:{
-                clerkid:id
+                clerkid:params.id
             },
             include:{
                 studio:true,
@@ -21,10 +21,10 @@ export async function GET(req:NextRequest,{params:{id}}:{params:{id:string}}){
             }
         })
         if(userProfile) return NextResponse.json({status:200,user:userProfile});
-        const clerkUserInstance=await clerkClient.users.getUser(id);
+        const clerkUserInstance=await clerkClient.users.getUser(params.id);
         const createUser=await client.user.create({
             data:{
-                clerkid:id,
+                clerkid:params.id,
                 email:clerkUserInstance.emailAddresses[0].emailAddress,
                 firstname:clerkUserInstance.firstname,
                 lastname:clerkUserInstance.lastname,
